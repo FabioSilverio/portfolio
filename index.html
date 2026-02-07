@@ -3,11 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hub de Uploads do YouTube</title>
+    <title>Meu Hub de Canais do YouTube</title>
     <style>
         :root {
             color-scheme: dark;
             font-size: 16px;
+            --bg: #07050d;
+            --bg-soft: #14111e;
+            --primary: #8f6bff;
+            --primary-strong: #b694ff;
+            --text: #f7f2ff;
+            --muted: rgba(247, 242, 255, 0.65);
         }
 
         * {
@@ -18,10 +24,13 @@
 
         body {
             font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
-            background: radial-gradient(circle at top, #1d0f2b 0%, #0c0613 55%, #050308 100%);
-            color: #f7f2ff;
+            background: radial-gradient(circle at top, #1b1130 0%, #0c0817 60%, #05030a 100%);
+            color: var(--text);
             min-height: 100vh;
-            overflow-x: hidden;
+        }
+
+        a {
+            color: inherit;
         }
 
         .container {
@@ -30,150 +39,145 @@
             padding: 0 24px;
         }
 
-        .glass {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 24px;
-            backdrop-filter: blur(24px);
-            box-shadow: 0 30px 80px rgba(10, 4, 20, 0.45);
-        }
-
         header {
-            position: fixed;
+            position: sticky;
             top: 0;
-            left: 0;
-            width: 100%;
             z-index: 1000;
-            padding: 18px 0;
-            transition: background 0.3s ease;
+            background: rgba(7, 5, 13, 0.92);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
         }
 
-        header.scrolled {
-            background: rgba(5, 3, 8, 0.85);
-            backdrop-filter: blur(18px);
-        }
-
-        nav {
+        .nav {
             display: flex;
             align-items: center;
             justify-content: space-between;
+            padding: 18px 0;
         }
 
         .logo {
             font-weight: 600;
             letter-spacing: 2px;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
         }
 
-        .nav-links {
+        .nav-actions {
             display: flex;
-            list-style: none;
-            gap: 28px;
+            gap: 12px;
         }
 
-        .nav-links a {
-            text-decoration: none;
-            color: #f7f2ff;
-            font-weight: 300;
-            font-size: 0.95rem;
-            transition: color 0.3s ease;
+        .chip {
+            padding: 8px 16px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text);
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
         }
 
-        .nav-links a:hover {
-            color: #d7b7ff;
+        .chip.active {
+            background: linear-gradient(120deg, rgba(143, 107, 255, 0.9), rgba(182, 148, 255, 0.9));
+            color: #0c0817;
+            border-color: transparent;
+        }
+
+        main {
+            padding: 40px 0 80px;
         }
 
         .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding-top: 120px;
-            position: relative;
-        }
-
-        .hero-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 32px;
             align-items: center;
+            padding: 40px 0 20px;
         }
 
         .hero h1 {
-            font-size: clamp(2.6rem, 6vw, 4.5rem);
-            font-weight: 600;
+            font-size: clamp(2.4rem, 5vw, 3.8rem);
+            margin-bottom: 14px;
             line-height: 1.1;
-            margin-bottom: 18px;
-            background: linear-gradient(120deg, #fff, #b993ff 40%, #7b5cff 80%);
+            background: linear-gradient(120deg, #fff, #b694ff 60%);
             -webkit-background-clip: text;
             color: transparent;
         }
 
         .hero p {
-            font-size: 1.1rem;
-            opacity: 0.8;
+            color: var(--muted);
+            font-size: 1.05rem;
             line-height: 1.6;
         }
 
-        .hero-card {
-            padding: 28px;
+        .stats {
             display: grid;
-            gap: 20px;
+            gap: 16px;
         }
 
-        .hero-card h3 {
-            font-size: 1.1rem;
-            font-weight: 500;
+        .stat-card {
+            padding: 18px 20px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
         }
 
-        .cta {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 12px 26px;
-            border-radius: 999px;
-            border: 1px solid rgba(196, 159, 255, 0.5);
-            background: rgba(140, 92, 246, 0.2);
-            color: #f7f2ff;
-            text-decoration: none;
-            transition: all 0.3s ease;
+        .stat-card strong {
+            display: block;
+            font-size: 1.7rem;
+            margin-top: 6px;
         }
 
-        .cta:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 16px 30px rgba(123, 92, 255, 0.3);
+        .tabs {
+            display: flex;
+            gap: 12px;
+            margin-top: 32px;
         }
 
-        section {
-            padding: 90px 0;
+        .tab-button {
+            border: none;
+            padding: 10px 20px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text);
+            cursor: pointer;
         }
 
-        .section-title {
-            font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: 600;
-            text-align: center;
-            margin-bottom: 50px;
-            background: linear-gradient(120deg, #fff, #cba8ff 60%);
-            -webkit-background-clip: text;
-            color: transparent;
+        .tab-button.active {
+            background: linear-gradient(120deg, rgba(143, 107, 255, 0.9), rgba(182, 148, 255, 0.9));
+            color: #0c0817;
+        }
+
+        .section {
+            display: none;
+            margin-top: 32px;
+        }
+
+        .section.active {
+            display: block;
         }
 
         .grid {
             display: grid;
-            gap: 24px;
+            gap: 20px;
         }
 
         .grid-2 {
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
         }
 
-        .input-group {
+        .card {
+            padding: 20px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             display: grid;
             gap: 14px;
         }
 
         label {
             font-size: 0.9rem;
-            opacity: 0.7;
+            color: var(--muted);
         }
 
         input, select {
@@ -181,435 +185,535 @@
             padding: 12px 14px;
             border-radius: 12px;
             border: 1px solid rgba(255, 255, 255, 0.2);
-            background: rgba(5, 3, 8, 0.5);
-            color: #f7f2ff;
+            background: rgba(5, 3, 10, 0.6);
+            color: var(--text);
         }
 
-        button {
-            padding: 12px 18px;
-            border-radius: 12px;
+        button.primary {
             border: none;
-            background: linear-gradient(120deg, #7b5cff, #b993ff);
-            color: #0c0613;
+            padding: 12px 16px;
+            border-radius: 12px;
+            background: linear-gradient(120deg, #8f6bff, #b694ff);
+            color: #0c0817;
             font-weight: 600;
             cursor: pointer;
-            transition: transform 0.2s ease;
         }
 
-        button:hover {
-            transform: translateY(-2px);
-        }
-
-        .card {
-            padding: 22px;
-            display: grid;
-            gap: 16px;
-        }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .badge {
-            padding: 6px 12px;
-            border-radius: 999px;
-            background: rgba(123, 92, 255, 0.2);
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .channel-list {
+        .channel-list,
+        .video-list {
             display: grid;
             gap: 12px;
         }
 
-        .channel-item {
-            display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 12px;
-            align-items: center;
+        .channel-item,
+        .video-item {
             padding: 14px 16px;
             border-radius: 16px;
-            background: rgba(255, 255, 255, 0.06);
-        }
-
-        .channel-item h4 {
-            font-size: 1rem;
-            margin-bottom: 4px;
-        }
-
-        .channel-item p {
-            font-size: 0.85rem;
-            opacity: 0.7;
-        }
-
-        .channel-actions {
-            display: flex;
+            background: rgba(255, 255, 255, 0.07);
+            display: grid;
             gap: 8px;
         }
 
-        .channel-actions button {
-            padding: 8px 10px;
+        .channel-item h4,
+        .video-item h4 {
+            font-size: 1rem;
+        }
+
+        .channel-meta,
+        .video-meta {
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+        .channel-actions,
+        .video-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .channel-actions button,
+        .video-actions button {
+            border: none;
+            padding: 6px 10px;
             border-radius: 10px;
             background: rgba(255, 255, 255, 0.12);
-            color: #f7f2ff;
+            color: var(--text);
+            cursor: pointer;
         }
 
         .channel-actions button.active {
-            background: rgba(123, 92, 255, 0.6);
+            background: rgba(143, 107, 255, 0.7);
         }
 
-        .upload-card {
+        .feed {
             display: grid;
-            gap: 12px;
-            padding: 18px;
+            gap: 18px;
+        }
+
+        .feed-card {
+            padding: 20px;
             border-radius: 20px;
             background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: grid;
+            gap: 12px;
         }
 
-        .upload-meta {
+        .feed-card h3 {
+            font-size: 1.15rem;
+        }
+
+        .feed-meta {
             display: flex;
             justify-content: space-between;
+            color: var(--muted);
             font-size: 0.85rem;
-            opacity: 0.7;
         }
 
-        .status-pill {
-            padding: 6px 12px;
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
             border-radius: 999px;
             background: rgba(255, 255, 255, 0.12);
-            font-size: 0.8rem;
+            font-size: 0.75rem;
         }
 
-        .footer {
-            padding: 40px 0 60px;
+        footer {
             text-align: center;
-            opacity: 0.6;
+            padding: 40px 0;
+            color: var(--muted);
         }
 
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
+            .nav-actions {
+                flex-wrap: wrap;
             }
-
-            .hero {
-                padding-top: 140px;
-            }
-        }
-
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
         }
     </style>
 </head>
 <body>
-    <header id="header">
-        <nav class="container">
-            <div class="logo">YOUTUBE HUB</div>
-            <ul class="nav-links">
-                <li><a href="#home">Visão geral</a></li>
-                <li><a href="#lista">Minha lista</a></li>
-                <li><a href="#uploads">Uploads</a></li>
-                <li><a href="#dicas">Dicas</a></li>
-            </ul>
-        </nav>
+    <header>
+        <div class="container nav">
+            <div class="logo">MEU YOUTUBE HUB</div>
+            <div class="nav-actions">
+                <button class="chip active" data-tab="feed">Feed</button>
+                <button class="chip" data-tab="salvos">Vídeos salvos</button>
+                <button class="chip" data-tab="canais">Meus canais</button>
+            </div>
+        </div>
     </header>
 
-    <main>
-        <section id="home" class="hero">
-            <div class="container hero-grid">
-                <div>
-                    <h1>Organize os uploads dos seus canais favoritos.</h1>
-                    <p>
-                        Crie sua própria central de acompanhamento do YouTube. Adicione canais,
-                        marque favoritos e acompanhe os últimos vídeos publicados em um só lugar.
-                    </p>
-                    <div style="margin-top: 28px;">
-                        <a href="#lista" class="cta">Começar minha lista</a>
-                    </div>
+    <main class="container">
+        <section class="hero">
+            <div>
+                <h1>Seu feed pessoal de uploads.</h1>
+                <p>
+                    Aqui você adiciona os canais que quer acompanhar e salva os vídeos que não pode
+                    assistir agora. Tudo fica organizado em um só lugar.
+                </p>
+                <div class="tabs">
+                    <button class="tab-button active" data-tab="feed">Ir para o feed</button>
+                    <button class="tab-button" data-tab="salvos">Ver salvos</button>
+                    <button class="tab-button" data-tab="canais">Gerenciar canais</button>
                 </div>
-                <div class="hero-card glass">
-                    <h3>Resumo do seu hub</h3>
+            </div>
+            <div class="stats">
+                <div class="stat-card">
+                    <span>Canais acompanhados</span>
+                    <strong id="stat-channels">0</strong>
+                </div>
+                <div class="stat-card">
+                    <span>Uploads no feed</span>
+                    <strong id="stat-feed">0</strong>
+                </div>
+                <div class="stat-card">
+                    <span>Vídeos salvos</span>
+                    <strong id="stat-saved">0</strong>
+                </div>
+            </div>
+        </section>
+
+        <section id="feed" class="section active">
+            <div class="grid grid-2">
+                <div class="card">
+                    <h3>Feed principal</h3>
+                    <p style="color: var(--muted);">
+                        Quando você adiciona canais, o feed mostra os uploads mais recentes para não perder nada.
+                    </p>
+                    <div id="feed-list" class="feed"></div>
+                </div>
+                <div class="card">
+                    <h3>Filtros rápidos</h3>
+                    <p style="color: var(--muted);">Use o filtro para focar no tipo de conteúdo que você quer assistir agora.</p>
                     <div class="grid">
                         <div>
-                            <p style="opacity: 0.7; font-size: 0.9rem;">Total de canais</p>
-                            <strong id="channel-count" style="font-size: 2rem;">0</strong>
+                            <label for="filter-channel">Canal</label>
+                            <select id="filter-channel"></select>
                         </div>
                         <div>
-                            <p style="opacity: 0.7; font-size: 0.9rem;">Favoritos</p>
-                            <strong id="favorite-count" style="font-size: 2rem;">0</strong>
+                            <label for="filter-tag">Tag</label>
+                            <select id="filter-tag">
+                                <option value="">Todos</option>
+                                <option value="Tutorial">Tutorial</option>
+                                <option value="Live">Live</option>
+                                <option value="Review">Review</option>
+                                <option value="Inspiração">Inspiração</option>
+                            </select>
                         </div>
-                        <div>
-                            <p style="opacity: 0.7; font-size: 0.9rem;">Status do hub</p>
-                            <span class="status-pill" id="hub-status">Pronto para adicionar</span>
-                        </div>
+                        <button class="primary" id="apply-filter">Aplicar filtro</button>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="lista" class="container fade-in">
-            <h2 class="section-title">Minha lista de canais</h2>
+        <section id="salvos" class="section">
             <div class="grid grid-2">
-                <div class="glass card">
-                    <div class="card-header">
-                        <h3>Adicionar canal</h3>
-                        <span class="badge">Personalize</span>
-                    </div>
-                    <form id="channel-form" class="input-group">
+                <div class="card">
+                    <h3>Meus vídeos salvos</h3>
+                    <p style="color: var(--muted);">Salve vídeos direto do feed para assistir quando tiver tempo.</p>
+                    <div id="saved-list" class="video-list"></div>
+                </div>
+                <div class="card">
+                    <h3>Dicas rápidas</h3>
+                    <ul style="color: var(--muted); padding-left: 18px; display: grid; gap: 8px;">
+                        <li>Use “Salvar” no feed para mover vídeos para esta lista.</li>
+                        <li>Remova o que já assistiu para manter a lista leve.</li>
+                        <li>Favoritos aparecem no topo do feed.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="canais" class="section">
+            <div class="grid grid-2">
+                <div class="card">
+                    <h3>Adicionar canal</h3>
+                    <form id="channel-form" class="grid">
                         <div>
                             <label for="channel-name">Nome do canal</label>
-                            <input id="channel-name" name="name" type="text" placeholder="Ex: Canal do Criador" required>
+                            <input id="channel-name" name="name" type="text" placeholder="Ex: Canal Criativo" required>
                         </div>
                         <div>
                             <label for="channel-link">Link do canal</label>
                             <input id="channel-link" name="link" type="url" placeholder="https://youtube.com/@canal" required>
                         </div>
                         <div>
-                            <label for="channel-focus">Foco do conteúdo</label>
-                            <select id="channel-focus" name="focus">
-                                <option value="Criatividade">Criatividade</option>
-                                <option value="Educação">Educação</option>
-                                <option value="Tecnologia">Tecnologia</option>
-                                <option value="Games">Games</option>
-                                <option value="Lifestyle">Lifestyle</option>
+                            <label for="channel-tag">Tag principal</label>
+                            <select id="channel-tag" name="tag">
+                                <option value="Tutorial">Tutorial</option>
+                                <option value="Live">Live</option>
+                                <option value="Review">Review</option>
+                                <option value="Inspiração">Inspiração</option>
                             </select>
                         </div>
-                        <button type="submit">Adicionar à lista</button>
+                        <button class="primary" type="submit">Adicionar</button>
                     </form>
                 </div>
-                <div class="glass card">
-                    <div class="card-header">
-                        <h3>Seus canais</h3>
-                        <span class="badge" id="list-badge">0 salvos</span>
-                    </div>
-                    <div id="channel-list" class="channel-list">
-                        <p style="opacity: 0.7;">Nenhum canal ainda. Adicione alguns e acompanhe os uploads!</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="uploads" class="container fade-in">
-            <h2 class="section-title">Últimos uploads (mock)</h2>
-            <div class="grid grid-2">
-                <div class="upload-card">
-                    <div class="upload-meta">
-                        <span>Canal Tech+</span>
-                        <span>Hoje • 12:40</span>
-                    </div>
-                    <h3>Guia rápido: novidades do YouTube Studio</h3>
-                    <p style="opacity: 0.7;">Resumo das métricas e como usar alertas de upload para não perder vídeos.</p>
-                    <div class="status-pill">Assistir depois</div>
-                </div>
-                <div class="upload-card">
-                    <div class="upload-meta">
-                        <span>Criadores em Foco</span>
-                        <span>Ontem • 18:15</span>
-                    </div>
-                    <h3>Como planejar playlists inteligentes</h3>
-                    <p style="opacity: 0.7;">Estratégias para organizar conteúdos longos e séries semanais.</p>
-                    <div class="status-pill">Novo upload</div>
-                </div>
-                <div class="upload-card">
-                    <div class="upload-meta">
-                        <span>Canal Inspira</span>
-                        <span>2 dias atrás • 09:20</span>
-                    </div>
-                    <h3>Rotina criativa para creators</h3>
-                    <p style="opacity: 0.7;">Checklist para deixar a lista de canais sempre atualizada.</p>
-                    <div class="status-pill">Favorito</div>
-                </div>
-                <div class="upload-card">
-                    <div class="upload-meta">
-                        <span>Pixel Lab</span>
-                        <span>3 dias atrás • 21:05</span>
-                    </div>
-                    <h3>Como filtrar canais por tema e frequência</h3>
-                    <p style="opacity: 0.7;">Monte grupos e receba só o que faz sentido para você.</p>
-                    <div class="status-pill">Em alta</div>
-                </div>
-            </div>
-        </section>
-
-        <section id="dicas" class="container fade-in">
-            <h2 class="section-title">Dicas para não perder uploads</h2>
-            <div class="grid grid-2">
-                <div class="glass card">
-                    <h3>Crie etiquetas personalizadas</h3>
-                    <p style="opacity: 0.8;">
-                        Use a categoria do canal para separar educação, entretenimento e trabalho.
-                        Fica mais fácil priorizar o que assistir primeiro.
-                    </p>
-                </div>
-                <div class="glass card">
-                    <h3>Marque seus favoritos</h3>
-                    <p style="opacity: 0.8;">
-                        Dê um destaque para os canais que você realmente não quer perder.
-                        Assim eles aparecem no topo da sua lista.
-                    </p>
-                </div>
-                <div class="glass card">
-                    <h3>Atualize semanalmente</h3>
-                    <p style="opacity: 0.8;">
-                        Reserve alguns minutos para remover canais que não fazem mais sentido e
-                        adicionar novas descobertas.
-                    </p>
-                </div>
-                <div class="glass card">
-                    <h3>Use o link direto</h3>
-                    <p style="opacity: 0.8;">
-                        Ao clicar no nome do canal você abre o YouTube em uma nova guia com os uploads
-                        já prontos para ver.
-                    </p>
+                <div class="card">
+                    <h3>Meus canais</h3>
+                    <div id="channel-list" class="channel-list"></div>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer class="footer">
-        <div class="container">
-            Hub pessoal de canais do YouTube • Organize, favorite e acompanhe os uploads.
-        </div>
+    <footer>
+        Feito para organizar seus canais favoritos do YouTube sem perder nenhum upload.
     </footer>
 
     <script>
-        const header = document.getElementById('header');
-        const channelForm = document.getElementById('channel-form');
+        const tabButtons = document.querySelectorAll('[data-tab]');
+        const sections = document.querySelectorAll('.section');
+        const feedList = document.getElementById('feed-list');
+        const savedList = document.getElementById('saved-list');
         const channelList = document.getElementById('channel-list');
-        const listBadge = document.getElementById('list-badge');
-        const channelCount = document.getElementById('channel-count');
-        const favoriteCount = document.getElementById('favorite-count');
-        const hubStatus = document.getElementById('hub-status');
+        const channelForm = document.getElementById('channel-form');
+        const filterChannel = document.getElementById('filter-channel');
+        const filterTag = document.getElementById('filter-tag');
+        const applyFilter = document.getElementById('apply-filter');
+        const statChannels = document.getElementById('stat-channels');
+        const statFeed = document.getElementById('stat-feed');
+        const statSaved = document.getElementById('stat-saved');
 
-        const storageKey = 'youtubeHubChannels';
+        const storageChannels = 'youtubeHubChannels';
+        const storageSaved = 'youtubeHubSaved';
 
-        const getChannels = () => {
-            const stored = localStorage.getItem(storageKey);
-            if (!stored) {
-                return [];
+        const defaultFeed = [
+            {
+                id: 'feed-1',
+                channel: 'Canal Tech+',
+                title: 'Novidades no YouTube Studio para criadores',
+                time: 'Hoje • 12:40',
+                tag: 'Tutorial'
+            },
+            {
+                id: 'feed-2',
+                channel: 'Criadores em Foco',
+                title: 'Checklist semanal para não perder uploads',
+                time: 'Ontem • 18:15',
+                tag: 'Inspiração'
+            },
+            {
+                id: 'feed-3',
+                channel: 'Pixel Lab',
+                title: 'Review das melhores playlists para foco',
+                time: '2 dias atrás • 09:20',
+                tag: 'Review'
             }
+        ];
+
+        const getStored = (key, fallback = []) => {
+            const stored = localStorage.getItem(key);
+            if (!stored) return fallback;
             try {
                 return JSON.parse(stored);
             } catch (error) {
-                return [];
+                return fallback;
             }
         };
 
-        const saveChannels = (channels) => {
-            localStorage.setItem(storageKey, JSON.stringify(channels));
+        const saveStored = (key, value) => {
+            localStorage.setItem(key, JSON.stringify(value));
         };
 
-        const updateStats = (channels) => {
-            const total = channels.length;
-            const favorites = channels.filter(channel => channel.favorite).length;
-            channelCount.textContent = total;
-            favoriteCount.textContent = favorites;
-            listBadge.textContent = `${total} salvos`;
-
-            if (total === 0) {
-                hubStatus.textContent = 'Pronto para adicionar';
-            } else if (favorites === 0) {
-                hubStatus.textContent = 'Organize seus favoritos';
-            } else {
-                hubStatus.textContent = 'Hub em movimento';
-            }
+        const setActiveTab = (tab) => {
+            tabButtons.forEach(button => {
+                button.classList.toggle('active', button.dataset.tab === tab);
+            });
+            sections.forEach(section => {
+                section.classList.toggle('active', section.id === tab);
+            });
         };
 
-        const renderChannels = () => {
-            const channels = getChannels();
-            channelList.innerHTML = '';
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => setActiveTab(button.dataset.tab));
+        });
 
+        const updateStats = () => {
+            const channels = getStored(storageChannels);
+            const saved = getStored(storageSaved);
+            const feed = buildFeed();
+            statChannels.textContent = channels.length;
+            statFeed.textContent = feed.length;
+            statSaved.textContent = saved.length;
+        };
+
+        const buildFeed = () => {
+            const channels = getStored(storageChannels);
             if (channels.length === 0) {
-                channelList.innerHTML = '<p style="opacity: 0.7;">Nenhum canal ainda. Adicione alguns e acompanhe os uploads!</p>';
-                updateStats(channels);
+                return defaultFeed;
+            }
+
+            return channels.map(channel => ({
+                id: `feed-${channel.id}`,
+                channel: channel.name,
+                title: `Novo vídeo de ${channel.name}`,
+                time: 'Hoje • 10:00',
+                tag: channel.tag
+            }));
+        };
+
+        const renderFeed = (filter = {}) => {
+            const feed = buildFeed();
+            const saved = getStored(storageSaved);
+            const filtered = feed.filter(item => {
+                if (filter.channel && item.channel !== filter.channel) return false;
+                if (filter.tag && item.tag !== filter.tag) return false;
+                return true;
+            });
+
+            feedList.innerHTML = '';
+
+            if (filtered.length === 0) {
+                feedList.innerHTML = '<p style="color: var(--muted);">Nenhum upload com esses filtros.</p>';
+                updateStats();
                 return;
             }
 
-            channels
-                .sort((a, b) => Number(b.favorite) - Number(a.favorite))
-                .forEach((channel) => {
-                    const item = document.createElement('div');
-                    item.className = 'channel-item';
+            filtered.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'feed-card';
 
-                    const info = document.createElement('div');
-                    const title = document.createElement('h4');
-                    title.innerHTML = `<a href="${channel.link}" target="_blank" style="color: inherit; text-decoration: none;">${channel.name}</a>`;
+                const meta = document.createElement('div');
+                meta.className = 'feed-meta';
+                meta.innerHTML = `<span>${item.channel}</span><span>${item.time}</span>`;
 
-                    const meta = document.createElement('p');
-                    meta.textContent = `${channel.focus} • ${channel.link.replace('https://', '')}`;
+                const title = document.createElement('h3');
+                title.textContent = item.title;
 
-                    info.appendChild(title);
-                    info.appendChild(meta);
+                const tag = document.createElement('span');
+                tag.className = 'tag';
+                tag.textContent = item.tag;
 
-                    const actions = document.createElement('div');
-                    actions.className = 'channel-actions';
+                const actions = document.createElement('div');
+                actions.className = 'video-actions';
 
-                    const favoriteButton = document.createElement('button');
-                    favoriteButton.type = 'button';
-                    favoriteButton.textContent = channel.favorite ? '★' : '☆';
-                    if (channel.favorite) {
-                        favoriteButton.classList.add('active');
-                    }
-                    favoriteButton.addEventListener('click', () => toggleFavorite(channel.id));
+                const saveButton = document.createElement('button');
+                const isSaved = saved.some(savedItem => savedItem.id === item.id);
+                saveButton.textContent = isSaved ? 'Salvo' : 'Salvar';
+                if (isSaved) {
+                    saveButton.classList.add('active');
+                }
+                saveButton.addEventListener('click', () => toggleSaved(item.id));
 
-                    const removeButton = document.createElement('button');
-                    removeButton.type = 'button';
-                    removeButton.textContent = 'Remover';
-                    removeButton.addEventListener('click', () => removeChannel(channel.id));
+                actions.appendChild(saveButton);
 
-                    actions.appendChild(favoriteButton);
-                    actions.appendChild(removeButton);
+                card.append(meta, title, tag, actions);
+                feedList.appendChild(card);
+            });
 
-                    item.appendChild(info);
-                    item.appendChild(actions);
-                    channelList.appendChild(item);
-                });
+            updateStats();
+        };
 
-            updateStats(channels);
+        const renderSaved = () => {
+            const saved = getStored(storageSaved);
+            savedList.innerHTML = '';
+
+            if (saved.length === 0) {
+                savedList.innerHTML = '<p style="color: var(--muted);">Você ainda não salvou nenhum vídeo.</p>';
+                updateStats();
+                return;
+            }
+
+            saved.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'video-item';
+
+                const title = document.createElement('h4');
+                title.textContent = item.title;
+
+                const meta = document.createElement('div');
+                meta.className = 'video-meta';
+                meta.textContent = `${item.channel} • ${item.time}`;
+
+                const actions = document.createElement('div');
+                actions.className = 'video-actions';
+
+                const removeButton = document.createElement('button');
+                removeButton.textContent = 'Remover';
+                removeButton.addEventListener('click', () => removeSaved(item.id));
+
+                actions.appendChild(removeButton);
+
+                card.append(title, meta, actions);
+                savedList.appendChild(card);
+            });
+
+            updateStats();
+        };
+
+        const renderChannels = () => {
+            const channels = getStored(storageChannels);
+            channelList.innerHTML = '';
+
+            if (channels.length === 0) {
+                channelList.innerHTML = '<p style="color: var(--muted);">Adicione canais para personalizar seu feed.</p>';
+                updateStats();
+                return;
+            }
+
+            channels.forEach(channel => {
+                const card = document.createElement('div');
+                card.className = 'channel-item';
+
+                const title = document.createElement('h4');
+                title.innerHTML = `<a href="${channel.link}" target="_blank" rel="noreferrer">${channel.name}</a>`;
+
+                const meta = document.createElement('div');
+                meta.className = 'channel-meta';
+                meta.textContent = `${channel.tag} • ${channel.link.replace('https://', '')}`;
+
+                const actions = document.createElement('div');
+                actions.className = 'channel-actions';
+
+                const favoriteButton = document.createElement('button');
+                favoriteButton.textContent = channel.favorite ? '★ Favorito' : '☆ Favoritar';
+                if (channel.favorite) {
+                    favoriteButton.classList.add('active');
+                }
+                favoriteButton.addEventListener('click', () => toggleFavorite(channel.id));
+
+                const removeButton = document.createElement('button');
+                removeButton.textContent = 'Remover';
+                removeButton.addEventListener('click', () => removeChannel(channel.id));
+
+                actions.append(favoriteButton, removeButton);
+
+                card.append(title, meta, actions);
+                channelList.appendChild(card);
+            });
+
+            updateStats();
+        };
+
+        const refreshFilterOptions = () => {
+            const channels = getStored(storageChannels);
+            filterChannel.innerHTML = '<option value="">Todos</option>';
+            channels.forEach(channel => {
+                const option = document.createElement('option');
+                option.value = channel.name;
+                option.textContent = channel.name;
+                filterChannel.appendChild(option);
+            });
         };
 
         const addChannel = (data) => {
-            const channels = getChannels();
-            const newChannel = {
+            const channels = getStored(storageChannels);
+            channels.push({
                 id: Date.now().toString(),
                 name: data.name,
                 link: data.link,
-                focus: data.focus,
+                tag: data.tag,
                 favorite: false
-            };
-
-            channels.push(newChannel);
-            saveChannels(channels);
+            });
+            saveStored(storageChannels, channels);
             renderChannels();
+            refreshFilterOptions();
+            renderFeed();
         };
 
         const toggleFavorite = (id) => {
-            const channels = getChannels().map(channel => {
+            const channels = getStored(storageChannels).map(channel => {
                 if (channel.id === id) {
                     return { ...channel, favorite: !channel.favorite };
                 }
                 return channel;
             });
-
-            saveChannels(channels);
+            channels.sort((a, b) => Number(b.favorite) - Number(a.favorite));
+            saveStored(storageChannels, channels);
             renderChannels();
+            renderFeed();
         };
 
         const removeChannel = (id) => {
-            const channels = getChannels().filter(channel => channel.id !== id);
-            saveChannels(channels);
+            const channels = getStored(storageChannels).filter(channel => channel.id !== id);
+            saveStored(storageChannels, channels);
             renderChannels();
+            refreshFilterOptions();
+            renderFeed();
+        };
+
+        const toggleSaved = (id) => {
+            const saved = getStored(storageSaved);
+            const feed = buildFeed();
+            const found = feed.find(item => item.id === id);
+            if (!found) return;
+
+            const exists = saved.some(item => item.id === id);
+            const updated = exists ? saved.filter(item => item.id !== id) : [...saved, found];
+            saveStored(storageSaved, updated);
+            renderSaved();
+            renderFeed();
+        };
+
+        const removeSaved = (id) => {
+            const saved = getStored(storageSaved).filter(item => item.id !== id);
+            saveStored(storageSaved, saved);
+            renderSaved();
+            renderFeed();
         };
 
         channelForm.addEventListener('submit', (event) => {
@@ -617,45 +721,25 @@
             const formData = new FormData(channelForm);
             const name = formData.get('name').toString().trim();
             const link = formData.get('link').toString().trim();
-            const focus = formData.get('focus').toString().trim();
+            const tag = formData.get('tag').toString().trim();
 
-            if (!name || !link) {
-                return;
-            }
+            if (!name || !link) return;
 
-            addChannel({ name, link, focus });
+            addChannel({ name, link, tag });
             channelForm.reset();
         });
 
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 80) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
-
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', (event) => {
-                event.preventDefault();
-                const target = document.querySelector(anchor.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
+        applyFilter.addEventListener('click', () => {
+            renderFeed({
+                channel: filterChannel.value,
+                tag: filterTag.value
             });
         });
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.15 });
-
-        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
+        refreshFilterOptions();
         renderChannels();
+        renderSaved();
+        renderFeed();
     </script>
 </body>
 </html>
