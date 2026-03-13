@@ -1,619 +1,371 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfólio Design</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BluePulse | For You do Bluesky</title>
+  <style>
+    :root {
+      --bg: #070b17;
+      --bg-soft: #111a2f;
+      --card: #14213d;
+      --text: #e9eefc;
+      --muted: #9fb0dd;
+      --accent: #4ea1ff;
+      --accent-2: #7c5cff;
+      --ok: #38d39f;
+    }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #000000 0%, #1a0026 50%, #2d0040 100%);
-            color: white;
-            overflow-x: hidden;
-        }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color: var(--text);
+      background: radial-gradient(circle at top, #152447, var(--bg) 50%);
+    }
 
-        .glass {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-        }
+    .container {
+      width: min(1150px, 92vw);
+      margin: 0 auto;
+    }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+    header {
+      padding: 42px 0 24px;
+    }
 
-        /* Header */
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            padding: 20px 0;
-            transition: all 0.3s ease;
-        }
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 3.3rem);
+      letter-spacing: -0.02em;
+    }
 
-        header.scrolled {
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(20px);
-        }
+    .subtitle {
+      color: var(--muted);
+      max-width: 760px;
+      margin-top: 14px;
+      line-height: 1.55;
+    }
 
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    .panel {
+      background: linear-gradient(160deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 16px;
+      padding: 18px;
+      backdrop-filter: blur(12px);
+    }
 
-        .logo {
-            font-size: 24px;
-            font-weight: 300;
-            letter-spacing: 2px;
-        }
+    .controls {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 26px;
+      align-items: end;
+    }
 
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 40px;
-        }
+    label {
+      font-size: 0.9rem;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 6px;
+    }
 
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-weight: 300;
-            transition: all 0.3s ease;
-            position: relative;
-        }
+    input, select, button {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(3, 7, 20, 0.75);
+      color: var(--text);
+      padding: 11px 12px;
+      font-size: 0.95rem;
+    }
 
-        .nav-links a:hover {
-            color: #8b5cf6;
-        }
+    button {
+      cursor: pointer;
+      border: none;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      font-weight: 600;
+    }
 
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #8b5cf6, #a855f7);
-            transition: width 0.3s ease;
-        }
+    button:hover { filter: brightness(1.08); }
 
-        .nav-links a:hover::after {
-            width: 100%;
-        }
+    .hint {
+      font-size: 0.86rem;
+      color: #b8c6eb;
+      margin-top: 8px;
+    }
 
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-        }
+    .status {
+      margin-top: 14px;
+      font-size: 0.92rem;
+      color: var(--ok);
+      min-height: 20px;
+    }
 
-        .hero-content {
-            z-index: 2;
-        }
+    .grid {
+      margin: 24px 0 48px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
 
-        .hero h1 {
-            font-size: clamp(3rem, 8vw, 6rem);
-            font-weight: 100;
-            letter-spacing: -2px;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, #ffffff, #8b5cf6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: 1fr; }
+    }
 
-        .hero p {
-            font-size: 1.2rem;
-            font-weight: 300;
-            opacity: 0.8;
-            margin-bottom: 40px;
-        }
+    .column h2 {
+      margin: 0 0 10px;
+      font-size: 1.25rem;
+      letter-spacing: -0.01em;
+    }
 
-        .cta-button {
-            display: inline-block;
-            padding: 15px 40px;
-            background: rgba(139, 92, 246, 0.2);
-            border: 1px solid rgba(139, 92, 246, 0.3);
-            border-radius: 50px;
-            color: white;
-            text-decoration: none;
-            font-weight: 300;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-        }
+    .feed {
+      display: grid;
+      gap: 12px;
+      max-height: 68vh;
+      overflow: auto;
+      padding-right: 4px;
+    }
 
-        .cta-button:hover {
-            background: rgba(139, 92, 246, 0.3);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
-        }
+    .post {
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 12px;
+      padding: 13px;
+    }
 
-        /* Floating Elements */
-        .floating-element {
-            position: absolute;
-            background: rgba(139, 92, 246, 0.1);
-            border-radius: 50%;
-            backdrop-filter: blur(5px);
-            animation: float 6s ease-in-out infinite;
-        }
+    .post .top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: baseline;
+      margin-bottom: 8px;
+    }
 
-        .floating-element:nth-child(1) {
-            width: 100px;
-            height: 100px;
-            top: 20%;
-            left: 10%;
-            animation-delay: 0s;
-        }
+    .author {
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
 
-        .floating-element:nth-child(2) {
-            width: 150px;
-            height: 150px;
-            top: 60%;
-            right: 15%;
-            animation-delay: 2s;
-        }
+    .meta {
+      font-size: 0.8rem;
+      color: var(--muted);
+      white-space: nowrap;
+    }
 
-        .floating-element:nth-child(3) {
-            width: 80px;
-            height: 80px;
-            bottom: 20%;
-            left: 20%;
-            animation-delay: 4s;
-        }
+    .text {
+      margin: 0;
+      color: #e7edff;
+      line-height: 1.45;
+      white-space: pre-wrap;
+    }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
+    .metrics {
+      margin-top: 9px;
+      font-size: 0.83rem;
+      color: #bdd0fd;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
 
-        /* Sections */
-        section {
-            padding: 100px 0;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 3rem;
-            font-weight: 100;
-            margin-bottom: 60px;
-            background: linear-gradient(135deg, #ffffff, #8b5cf6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        /* Gallery Grid */
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 60px;
-        }
-
-        .gallery-item {
-            aspect-ratio: 4/3;
-            border-radius: 20px;
-            overflow: hidden;
-            position: relative;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .gallery-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.2);
-        }
-
-        .gallery-item img,
-        .gallery-item video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: all 0.3s ease;
-        }
-
-        .gallery-item:hover img,
-        .gallery-item:hover video {
-            transform: scale(1.05);
-        }
-
-        .gallery-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.8), rgba(168, 85, 247, 0.8));
-            opacity: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .gallery-item:hover .gallery-overlay {
-            opacity: 1;
-        }
-
-        .overlay-text {
-            text-align: center;
-            color: white;
-        }
-
-        .overlay-text h3 {
-            font-size: 1.5rem;
-            font-weight: 300;
-            margin-bottom: 10px;
-        }
-
-        .overlay-text p {
-            font-size: 1rem;
-            opacity: 0.9;
-        }
-
-        /* Contact Section */
-        .contact {
-            text-align: center;
-            padding: 150px 0;
-        }
-
-        .contact-glass {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 60px 40px;
-        }
-
-        .contact h2 {
-            font-size: 2.5rem;
-            font-weight: 100;
-            margin-bottom: 30px;
-        }
-
-        .contact p {
-            font-size: 1.1rem;
-            opacity: 0.8;
-            margin-bottom: 40px;
-        }
-
-        .contact-info {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            flex-wrap: wrap;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: #8b5cf6;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .contact-item:hover {
-            color: #a855f7;
-            transform: translateY(-2px);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .hero h1 {
-                font-size: 3rem;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-
-            .gallery-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-
-            .contact-info {
-                flex-direction: column;
-                gap: 20px;
-            }
-        }
-
-        /* Scroll Animations */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.3);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, #8b5cf6, #a855f7);
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(135deg, #7c3aed, #8b5cf6);
-        }
-    </style>
+    .post a {
+      display: inline-block;
+      margin-top: 10px;
+      color: #8ec5ff;
+      text-decoration: none;
+      font-size: 0.84rem;
+    }
+  </style>
 </head>
 <body>
-    <header id="header">
-        <nav class="container">
-            <div class="logo">PORTFOLIO</div>
-            <ul class="nav-links">
-                <li><a href="#home">Início</a></li>
-                <li><a href="#fotos">Fotos</a></li>
-                <li><a href="#videos">Vídeos</a></li>
-                <li><a href="#contato">Contato</a></li>
-            </ul>
-        </nav>
-    </header>
+  <header class="container">
+    <h1>BluePulse</h1>
+    <p class="subtitle">
+      Um protótipo de "For You" para Bluesky: ele pega sua timeline de seguindo e ranqueia os posts recentes mais populares,
+      além de montar uma vitrine de posts populares do Bluesky em geral.
+    </p>
+  </header>
 
-    <main>
-        <section id="home" class="hero">
-            <div class="floating-element"></div>
-            <div class="floating-element"></div>
-            <div class="floating-element"></div>
-            
-            <div class="hero-content">
-                <h1>FÁBIO SILVERIO</h1>
-                <p>designer GEN Z que sabe como comunicar visualmente com a nova internet</p>
-                <a href="#fotos" class="cta-button">Ver Trabalhos</a>
+  <main class="container">
+    <section class="panel">
+      <div class="controls">
+        <div>
+          <label for="identifier">Seu usuário (handle ou e-mail)</label>
+          <input id="identifier" placeholder="ex: seuusuario.bsky.social" />
+        </div>
+        <div>
+          <label for="password">App Password do Bluesky</label>
+          <input id="password" type="password" placeholder="xxxx-xxxx-xxxx-xxxx" />
+        </div>
+        <div>
+          <label for="hours">Janela de recência</label>
+          <select id="hours">
+            <option value="6">Últimas 6 horas</option>
+            <option value="12">Últimas 12 horas</option>
+            <option value="24" selected>Últimas 24 horas</option>
+            <option value="48">Últimas 48 horas</option>
+          </select>
+        </div>
+        <div>
+          <button id="load">Atualizar feed</button>
+        </div>
+      </div>
+      <p class="hint">A senha é usada apenas nesta sessão do navegador para buscar seu feed. Recomenda-se usar App Password.</p>
+      <div id="status" class="status"></div>
+    </section>
+
+    <section class="grid">
+      <article class="column panel">
+        <h2>🔥 Seu feed seguindo (top recentes)</h2>
+        <div id="personalFeed" class="feed"></div>
+      </article>
+      <article class="column panel">
+        <h2>🌎 Populares do Bluesky (global)</h2>
+        <div id="globalFeed" class="feed"></div>
+      </article>
+    </section>
+  </main>
+
+  <script>
+    const API = 'https://bsky.social/xrpc';
+    const statusEl = document.getElementById('status');
+    const personalFeedEl = document.getElementById('personalFeed');
+    const globalFeedEl = document.getElementById('globalFeed');
+
+    const setStatus = (msg, ok = true) => {
+      statusEl.style.color = ok ? 'var(--ok)' : '#ff8f8f';
+      statusEl.textContent = msg;
+    };
+
+    const postScore = (post, nowMs) => {
+      const ageHours = Math.max((nowMs - new Date(post.record.createdAt).getTime()) / 36e5, 0.2);
+      const engagement = (post.likeCount * 1.4) + (post.repostCount * 2) + (post.replyCount * 1.1) + (post.quoteCount * 1.7);
+      return engagement / Math.sqrt(ageHours);
+    };
+
+    const toBskyUrl = (post) => {
+      const parts = post.uri.split('/');
+      const rkey = parts[parts.length - 1];
+      const author = post.author?.handle || post.author?.did;
+      return `https://bsky.app/profile/${author}/post/${rkey}`;
+    };
+
+    const renderPosts = (container, posts) => {
+      if (!posts.length) {
+        container.innerHTML = '<div class="post">Nenhum post encontrado para o período/critério.</div>';
+        return;
+      }
+
+      container.innerHTML = posts.map(({ item, score }) => {
+        const created = new Date(item.record.createdAt).toLocaleString('pt-BR');
+        const text = (item.record.text || '[Sem texto]').slice(0, 420);
+        return `
+          <article class="post">
+            <div class="top">
+              <span class="author">@${item.author.handle}</span>
+              <span class="meta">${created}</span>
             </div>
-        </section>
-
-        <section id="fotos" class="container fade-in">
-            <h2 class="section-title">Fotos</h2>
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="images/projeto-1.jpg" alt="Projeto de Branding">
-                    <div class="gallery-overlay">
-                        <div class="overlay-text">
-                            <h3>Branding</h3>
-                            <p>Identidade visual completa</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="images/projeto-2.jpg" alt="Design Editorial">
-                    <div class="gallery-overlay">
-                        <div class="overlay-text">
-                            <h3>Editorial</h3>
-                            <p>Design de revista</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="images/projeto-3.jpg" alt="Design de Packaging">
-                    <div class="gallery-overlay">
-                        <div class="overlay-text">
-                            <h3>Packaging</h3>
-                            <p>Embalagem premium</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="images/projeto-4.jpg" alt="Interface Digital">
-                    <div class="gallery-overlay">
-                        <div class="overlay-text">
-                            <h3>Digital</h3>
-                            <p>Interface de app</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="images/projeto-5.jpg" alt="Material Print">
-                    <div class="gallery-overlay">
-                        <div class="overlay-text">
-                            <h3>Print</h3>
-                            <p>Material promocional</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="images/projeto-6.jpg" alt="Logo Design">
-                    <div class="gallery-overlay">
-                        <div class="overlay-text">
-                            <h3>Logo</h3>
-                            <p>Criação de marca</p>
-                        </div>
-                    </div>
-                </div>
+            <p class="text">${text.replace(/</g, '&lt;')}</p>
+            <div class="metrics">
+              <span>❤️ ${item.likeCount}</span>
+              <span>🔁 ${item.repostCount}</span>
+              <span>💬 ${item.replyCount}</span>
+              <span>🗨️ ${item.quoteCount}</span>
+              <span>⭐ score ${score.toFixed(1)}</span>
             </div>
-        </section>
-
-        <section id="videos" class="container fade-in">
-            <h2 class="section-title">Vídeos</h2>
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <video muted loop autoplay>
-                        <source src="videos/motion-graphics-1.mp4" type="video/mp4">
-                    </video>
-                    <div class="gallery-overlay">
-                        <div class="overlay-text">
-                            <h3>Motion Graphics</h3>
-                            <p>Animação 2D</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <video muted loop autoplay>
-                        <source src="videos/brand-video-1.mp4" type="video/mp4">
-                    </video>
-                    <div class="gallery-overlay">
-                        <div class="overlay-text">
-                            <h3>Brand Video</h3>
-                            <p>Vídeo institucional</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <video muted loop autoplay>
-                        <source src="videos/animacao-3d-1.mp4" type="video/mp4">
-                    </video>
-                    <div class="gallery-overlay">
-                        <div class="overlay-text">
-                            <h3>3D Animation</h3>
-                            <p>Modelagem e render</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="contato" class="contact">
-            <div class="container">
-                <div class="contact-glass glass">
-                    <h2>Vamos Trabalhar Juntos</h2>
-                    <p>Pronto para criar algo incrível? Entre em contato comigo.</p>
-                    <div class="contact-info">
-                        <a href="mailto:fabiogsilverio@gmail.com" class="contact-item">
-                            <span>📧</span>
-                            <span>fabiogsilverio@gmail.com</span>
-                        </a>
-                        <a href="tel:+5543996450404" class="contact-item">
-                            <span>📱</span>
-                            <span>(43) 99645-0404</span>
-                        </a>
-                        <a href="https://instagram.com/fabiosilverio.design" class="contact-item">
-                            <span>📸</span>
-                            <span>@fabiosilverio.design</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <script>
-        // Header scroll effect
-        window.addEventListener('scroll', () => {
-            const header = document.getElementById('header');
-            if (window.scrollY > 100) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Fade in animation on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.fade-in').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Gallery item hover effects
-        document.querySelectorAll('.gallery-item').forEach(item => {
-            item.addEventListener('mouseenter', () => {
-                const video = item.querySelector('video');
-                if (video) {
-                    video.play();
-                }
-            });
-
-            item.addEventListener('mouseleave', () => {
-                const video = item.querySelector('video');
-                if (video) {
-                    video.pause();
-                }
-            });
-        });
-
-        // Add some interactive particles
-        function createParticle() {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            particle.style.cssText = `
-                position: fixed;
-                width: 4px;
-                height: 4px;
-                background: rgba(139, 92, 246, 0.6);
-                border-radius: 50%;
-                pointer-events: none;
-                z-index: 1;
-                animation: particleFloat 4s linear forwards;
-            `;
-            
-            particle.style.left = Math.random() * window.innerWidth + 'px';
-            particle.style.top = window.innerHeight + 'px';
-            
-            document.body.appendChild(particle);
-            
-            setTimeout(() => {
-                particle.remove();
-            }, 4000);
-        }
-
-        // Add particle animation CSS
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes particleFloat {
-                to {
-                    transform: translateY(-100vh) translateX(${Math.random() * 200 - 100}px);
-                    opacity: 0;
-                }
-            }
+            <a href="${toBskyUrl(item)}" target="_blank" rel="noreferrer">Abrir no Bluesky ↗</a>
+          </article>
         `;
-        document.head.appendChild(style);
+      }).join('');
+    };
 
-        // Create particles periodically
-        setInterval(createParticle, 2000);
-    </script>
+    async function createSession(identifier, password) {
+      const res = await fetch(`${API}/com.atproto.server.createSession`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ identifier, password })
+      });
+      if (!res.ok) throw new Error('Falha no login. Verifique usuário/senha de app.');
+      return res.json();
+    }
+
+    async function getTimeline(token, limit = 60) {
+      const res = await fetch(`${API}/app.bsky.feed.getTimeline?limit=${limit}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      if (!res.ok) throw new Error('Não foi possível obter sua timeline.');
+      const data = await res.json();
+      return (data.feed || []).map((f) => f.post).filter(Boolean);
+    }
+
+    async function getGlobalPopular() {
+      const terms = ['brasil', 'tech', 'news', 'design', 'music'];
+      const requests = terms.map((q) =>
+        fetch(`${API}/app.bsky.feed.searchPosts?q=${encodeURIComponent(q)}&sort=top&limit=20`)
+          .then((res) => (res.ok ? res.json() : { posts: [] }))
+      );
+
+      const sets = await Promise.all(requests);
+      const map = new Map();
+
+      sets.flatMap((s) => s.posts || []).forEach((post) => {
+        if (!post?.uri) return;
+        const prev = map.get(post.uri);
+        if (!prev || (post.likeCount + post.repostCount) > (prev.likeCount + prev.repostCount)) {
+          map.set(post.uri, post);
+        }
+      });
+
+      return [...map.values()];
+    }
+
+    async function loadFeeds() {
+      const identifier = document.getElementById('identifier').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const hours = Number(document.getElementById('hours').value);
+
+      if (!identifier || !password) {
+        setStatus('Preencha usuário e App Password para carregar seu feed.', false);
+        return;
+      }
+
+      setStatus('Buscando dados do Bluesky...');
+      personalFeedEl.innerHTML = '<div class="post">Carregando...</div>';
+      globalFeedEl.innerHTML = '<div class="post">Carregando...</div>';
+
+      try {
+        const session = await createSession(identifier, password);
+        const [timelinePosts, globalPosts] = await Promise.all([
+          getTimeline(session.accessJwt, 100),
+          getGlobalPopular()
+        ]);
+
+        const now = Date.now();
+        const cutoff = now - (hours * 60 * 60 * 1000);
+
+        const personalRanked = timelinePosts
+          .filter((p) => new Date(p.record.createdAt).getTime() >= cutoff)
+          .map((item) => ({ item, score: postScore(item, now) }))
+          .sort((a, b) => b.score - a.score)
+          .slice(0, 20);
+
+        const globalRanked = globalPosts
+          .map((item) => ({ item, score: postScore(item, now) }))
+          .sort((a, b) => b.score - a.score)
+          .slice(0, 20);
+
+        renderPosts(personalFeedEl, personalRanked);
+        renderPosts(globalFeedEl, globalRanked);
+        setStatus('Feeds atualizados com sucesso.');
+      } catch (err) {
+        console.error(err);
+        setStatus(err.message || 'Erro inesperado ao carregar os feeds.', false);
+        personalFeedEl.innerHTML = '';
+        globalFeedEl.innerHTML = '';
+      }
+    }
+
+    document.getElementById('load').addEventListener('click', loadFeeds);
+  </script>
 </body>
 </html>
